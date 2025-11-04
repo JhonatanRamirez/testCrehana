@@ -6,7 +6,6 @@ plugins: [
     root: ['./src'],
     alias: { '@': './src' }
   }],
-  'react-native-reanimated/plugin'
 ]
 
 };
