@@ -4,7 +4,7 @@ import { useQuery } from '@apollo/client';
 import { ActivityIndicator, Card, Text } from 'react-native-paper';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import Video from 'react-native-video';
-import { GET_COUNTRY_DETAILS } from '../api/graphql/queries';
+import { GET_COUNTRY_DETAILS } from '../api/queries';
 import { CountryDetailsData } from '../types/types';
 import { RootStackParamList } from '../navigation/AppNavigator';
 

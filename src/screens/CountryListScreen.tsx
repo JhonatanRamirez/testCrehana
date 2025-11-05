@@ -3,7 +3,7 @@ import { View, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
 import { useQuery } from '@apollo/client';
 import { Searchbar, Button, Menu, Divider, ActivityIndicator, Text, Card } from 'react-native-paper';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { GET_COUNTRIES } from '../api/graphql/queries';
+import { GET_COUNTRIES } from '../api/queries';
 import { CountriesData, Country } from '../types/types';
 import { RootStackParamList } from '../navigation/AppNavigator';
 
