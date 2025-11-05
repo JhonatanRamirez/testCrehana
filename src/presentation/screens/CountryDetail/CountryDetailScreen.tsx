@@ -13,7 +13,7 @@ import Video from 'react-native-video';
 
 import { RootStackParamList } from '../../../navigation/AppNavigator';
 import { CountryDetailsData } from '../../../types/types';
-import { GET_COUNTRY_DETAILS } from '../../../api/queries';
+import { GET_COUNTRY_DETAILS } from '../../../api/graphQL/queries';
 import { styles } from './CountryDetailScreen.styles';
 import { t } from '../../../i18n';
 import VideoPlayer from '../../components/VideoPlayer';

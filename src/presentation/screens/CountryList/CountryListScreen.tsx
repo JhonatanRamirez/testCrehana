@@ -15,7 +15,7 @@ import {
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../../navigation/AppNavigator';
 import { CountriesData, Country } from '../../../types/types';
-import { GET_COUNTRIES } from '../../../api/queries';
+import { GET_COUNTRIES } from '../../../api/graphQL/queries';
 import { styles } from './CountryListScreen.styles';
 import { t } from '../../../i18n';
 import { useI18n } from '../../../i18n/I18nProvider';

@@ -1,93 +1,160 @@
-# Country Information and Video Streaming App
+# Country Explorer — React Native App
 
-This is a React Native application that displays information about countries and allows users to watch HLS video streams.
+A React Native application that displays information about countries using GraphQL and includes an embedded HLS video player.
 
 ## Features
 
--   **Country List:** View a list of all countries.
--   **Search:** Filter countries by name.
--   **Filter:** Filter countries by continent and currency.
--   **Country Details:** View detailed information about a specific country.
--   **HLS Video Player:** Watch an HLS video stream on the country detail screen.
+* **Country List:** Browse all countries retrieved via GraphQL API.
+* **Search & Filter:** Search by name or filter by continent/currency.
+* **Country Details:** View detailed information about each country.
+* **HLS Video Player:** Watch HLS video streams using a custom WebView player.
+* **Language Settings:** Switch between English and Spanish.
+* **Theming:** Fully supports light/dark themes via React Native Paper.
 
 ## Tech Stack
 
--   **React Native:** A framework for building native apps using React.
--   **TypeScript:** A typed superset of JavaScript that compiles to plain JavaScript.
--   **GraphQL:** A query language for APIs.
--   **Apollo Client:** A comprehensive state management library for JavaScript that enables you to manage both local and remote data with GraphQL.
--   **React Navigation:** A library for routing and navigation in React Native apps.
--   **React Native Paper:** A popular UI component library for React Native.
--   **React Native Video:** A component for displaying video in React Native.
-
-## Getting Started
-
-### Prerequisites
-
--   Node.js (>= 20)
--   npm or Yarn
--   React Native CLI
--   An Android or iOS emulator/device
-
-### Installation
-
-1.  **Clone the repository:**
-
-    ```sh
-    git clone https://github.com/your-username/country-app.git
-    cd country-app
-    ```
-
-2.  **Install dependencies:**
-
-    ```sh
-    npm install
-    # or
-    yarn install
-    ```
-
-3.  **Install iOS dependencies:**
-
-    ```sh
-    cd ios && pod install && cd ..
-    ```
-
-### Running the App
-
-1.  **Start the Metro bundler:**
-
-    ```sh
-    npm start
-    # or
-    yarn start
-    ```
-
-2.  **Run on Android:**
-
-    ```sh
-    npm run android
-    # or
-    yarn android
-    ```
-
-3.  **Run on iOS:**
-
-    ```sh
-    npm run ios
-    # or
-    yarn ios
-    ```
+| Category             | Technology                                         |
+| -------------------- | -------------------------------------------------- |
+| Framework            | React Native (0.73.6)                              |
+| Language             | TypeScript (5.x)                                   |
+| API Layer            | GraphQL with Apollo Client                         |
+| Navigation           | React Navigation (Native Stack)                    |
+| UI Library           | React Native Paper                                 |
+| Video Playback       | WebView-based HLS Player                           |
+| Internationalization | react-native-localize + custom i18n                |
+| Testing              | Jest + @testing-library/react-native               |
+| Icons                | react-native-vector-icons (MaterialCommunityIcons) |
 
 ## Project Structure
 
-The project is organized into the following directories:
+```
+src
+├── api/
+│   ├── apollo/              # Apollo client setup
+│   └── graphQl/             # GraphQL queries
+│
+├── domain/
+│   └── country/             # Business logic (e.g. filterCountries)
+│
+├── i18n/                    # Translations and language provider
+│   ├── index.ts
+│   └── I18nProvider.tsx
+│
+├── navigation/
+│   └── AppNavigator.tsx     # Navigation configuration
+│
+├── presentation/
+│   ├── components/          # Reusable UI components (VideoPlayer, etc.)
+│   └── screens/
+│       ├── CountryList/     # Country list view + filters
+│       ├── CountryDetail/   # Country details + video player
+│       └── Settings/        # Language selection screen
+│
+└── App.tsx                  # App entry point
+```
 
--   `src/api`: Contains the Apollo Client configuration and GraphQL queries.
--   `src/components`: Contains reusable UI components.
--   `src/navigation`: Contains the navigation setup.
--   `src/screens`: Contains the application screens.
--   `src/types`: Contains the TypeScript type definitions.
+## Testing & Coverage
+
+This project uses Jest and @testing-library/react-native.
+
+### Run all tests
+
+```bash
+yarn test
+```
+
+### Run with coverage report
+
+```bash
+yarn test --coverage
+```
+
+A detailed HTML report is generated at:
+
+```
+coverage/lcov-report/index.html
+```
+
+### Example coverage result
+
+```
+----------------------------------------
+File                           | % Stmts | % Branch | % Funcs | % Lines
+----------------------------------------
+All files                      |   85.7  |   80.0   |   78.9  |   86.2
+src/presentation/components    |  100.0  |  100.0   |  100.0  |  100.0
+src/presentation/screens       |   76.4  |   70.0   |   65.0  |   74.8
+----------------------------------------
+```
+
+## Installation & Setup
+
+### Prerequisites
+
+* Node.js >= 20
+* Yarn (recommended)
+* React Native CLI
+* iOS Simulator or Android Emulator
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/JhonatanRamirez/testCrehana.git
+cd testCrehana
+```
+
+### 2. Install dependencies
+
+```bash
+yarn install
+```
+
+### 3. iOS setup
+
+```bash
+cd ios && pod install && cd ..
+```
+
+### 4. Run the app
+
+```bash
+# Start Metro bundler
+yarn start
+
+# Run on iOS
+yarn ios
+
+# Run on Android
+yarn android
+```
+
+## GraphQL API
+
+The app uses the Countries GraphQL API (`https://countries.trevorblades.com/`) to fetch data such as:
+
+* Country name
+* Capital
+* Currency
+* Continent
+* Languages
+
+## Environment
+
+| Platform     | Version  |
+| ------------ | -------- |
+| Node         | ≥ 20.0.0 |
+| Yarn         | ≥ 1.22   |
+| React Native | 0.73.6   |
+| TypeScript   | 5.x      |
+| Jest         | 29.x     |
 
 ## Contributing
 
-Contributions are welcome! Please feel free to submit a pull request.
+Contributions are welcome.
+Fork the repository, create a feature branch, and submit a pull request.
+
+## Author
+
+**Jhonatan Ramirez**
+Senior React Native Developer
+GitHub: [JhonatanRamirez](https://github.com/JhonatanRamirez)

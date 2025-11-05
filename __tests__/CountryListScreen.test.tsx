@@ -5,7 +5,7 @@ import { Provider as PaperProvider } from 'react-native-paper';
 
 import { I18nProvider } from '../src/i18n/I18nProvider';
 import CountryListScreen from '../src/presentation/screens/CountryList/CountryListScreen';
-import { GET_COUNTRIES } from '../src/api/queries';
+import { GET_COUNTRIES } from '../src/api/graphQL/queries';
 
 const mockData = {
   countries: [
