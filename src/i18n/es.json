@@ -1,0 +1,33 @@
+{
+  "countryList": {
+    "title": "Lista de países",
+    "searchPlaceholder": "Buscar un país...",
+    "filterByContinent": "Filtrar por continente",
+    "filterByCurrency": "Filtrar por moneda",
+    "allContinents": "Todos los continentes",
+    "allCurrencies": "Todas las monedas"
+  },
+ "countryDetail": {
+  "capital": "Capital",
+  "continent": "Continente",
+  "currency": "Moneda",
+  "languages": "Idiomas",
+  "hlsTitle": "Reproductor HLS",
+  "playerLibraryButton": "Reproductor librería",
+  "playerCustomButton": "Reproductor custom",
+  "playerBothButton": "Ambos",
+  "playerLibraryLabel": "Reproductor librería (react-native-video)",
+  "playerCustomLabel": "Reproductor custom (WebView + hls.js)"
+},
+  "common": {
+    "error": "Error",
+    "countryNotFound": "País no encontrado."
+  },
+   "settings": {
+    "title": "Configuración",
+    "language": "Idioma",
+    "english": "Inglés",
+    "spanish": "Español",
+    "back": "Volver"
+  }
+}

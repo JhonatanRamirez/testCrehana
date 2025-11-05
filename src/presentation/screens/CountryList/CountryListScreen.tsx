@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback } from 'react';
+import React, { useState, useMemo, useCallback, useLayoutEffect } from 'react';
 import { View, FlatList, TouchableOpacity } from 'react-native';
 import { useQuery } from '@apollo/client';
 import {
@@ -10,12 +10,15 @@ import {
   Text,
   Card,
   useTheme,
+  IconButton,
 } from 'react-native-paper';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../../navigation/AppNavigator';
 import { CountriesData, Country } from '../../../types/types';
 import { GET_COUNTRIES } from '../../../api/queries';
 import { styles } from './CountryListScreen.styles';
+import { t } from '../../../i18n';
+import { useI18n } from '../../../i18n/I18nProvider';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'CountryList'>;
 
@@ -27,15 +30,29 @@ const CountryListScreen = ({ navigation }: Props) => {
   const [selectedCurrency, setSelectedCurrency] = useState<string | null>(null);
   const [continentMenuVisible, setContinentMenuVisible] = useState(false);
   const [currencyMenuVisible, setCurrencyMenuVisible] = useState(false);
+  const { language } = useI18n();
 
-  // 🔹 Obtiene las monedas únicas
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      title: t('countryList.title'),
+      headerRight: () => (
+        <IconButton
+          icon="cog"
+          iconColor={theme.colors.primary}
+          size={24}
+          onPress={() => navigation.navigate('Settings')}
+          accessibilityLabel={t('countryList.settingsButton')}
+        />
+      ),
+    });
+  }, [navigation, theme, t]);
+
   const currencies = useMemo(() => {
     if (!data) return [];
     const allCurrencies = data.countries.map(c => c.currency).filter(Boolean);
     return [...new Set(allCurrencies)].sort();
   }, [data]);
 
-  // 🔹 Filtra los países según búsqueda y filtros
   const filteredCountries = useMemo(() => {
     if (!data) return [];
     return data.countries.filter(country => {
@@ -57,7 +74,9 @@ const CountryListScreen = ({ navigation }: Props) => {
         <Card style={[styles.card, { backgroundColor: theme.colors.surface }]}>
           <Card.Title
             title={`${item.name} (${item.code})`}
-            subtitle={`Continent: ${item.continent.name} | Currency: ${item.currency || 'N/A'}`}
+            subtitle={`${t('countryDetail.continent')}: ${item.continent.name} | ${t('countryDetail.currency')}: ${
+              item.currency || 'N/A'
+            }`}
             titleStyle={{ color: theme.colors.onSurface }}
             subtitleStyle={{ color: theme.colors.onSurfaceVariant }}
           />
@@ -68,21 +87,23 @@ const CountryListScreen = ({ navigation }: Props) => {
   );
 
   if (loading) return <ActivityIndicator animating style={styles.centered} />;
-  if (error) return <Text style={styles.centered}>Error: {error.message}</Text>;
+  if (error) {
+    return (
+      <Text style={styles.centered}>
+        {t('common.error')}: {error.message}
+      </Text>
+    );
+  }
 
   return (
     <View style={styles.container}>
-      {/* 🔍 Barra de búsqueda */}
       <Searchbar
-        placeholder="Search for a country..."
+        placeholder={t('countryList.searchPlaceholder')}
         onChangeText={setSearchQuery}
         value={searchQuery}
         style={styles.searchbar}
       />
-
-      {/* 🔽 Filtros */}
       <View style={styles.filterContainer}>
-        {/* Filtro por continente */}
         <Menu
           visible={continentMenuVisible}
           onDismiss={() => setContinentMenuVisible(false)}
@@ -91,7 +112,7 @@ const CountryListScreen = ({ navigation }: Props) => {
               mode="outlined"
               onPress={() => setContinentMenuVisible(true)}
               textColor={theme.colors.primary}>
-              {selectedContinent || 'Filter by Continent'}
+              {selectedContinent || t('countryList.filterByContinent')}
             </Button>
           }>
           <Menu.Item
@@ -99,7 +120,7 @@ const CountryListScreen = ({ navigation }: Props) => {
               setSelectedContinent(null);
               setContinentMenuVisible(false);
             }}
-            title="All Continents"
+            title={t('countryList.allContinents')}
           />
           <Divider />
           {data?.continents.map(continent => (
@@ -113,8 +134,6 @@ const CountryListScreen = ({ navigation }: Props) => {
             />
           ))}
         </Menu>
-
-        {/* Filtro por moneda */}
         <Menu
           visible={currencyMenuVisible}
           onDismiss={() => setCurrencyMenuVisible(false)}
@@ -123,7 +142,7 @@ const CountryListScreen = ({ navigation }: Props) => {
               mode="outlined"
               onPress={() => setCurrencyMenuVisible(true)}
               textColor={theme.colors.primary}>
-              {selectedCurrency || 'Filter by Currency'}
+              {selectedCurrency || t('countryList.filterByCurrency')}
             </Button>
           }>
           <Menu.Item
@@ -131,7 +150,7 @@ const CountryListScreen = ({ navigation }: Props) => {
               setSelectedCurrency(null);
               setCurrencyMenuVisible(false);
             }}
-            title="All Currencies"
+            title={t('countryList.allCurrencies')}
           />
           <Divider />
           {currencies.map(currency => (
@@ -146,8 +165,6 @@ const CountryListScreen = ({ navigation }: Props) => {
           ))}
         </Menu>
       </View>
-
-      {/* 📋 Lista de países */}
       <FlatList
         data={filteredCountries}
         renderItem={renderItem}
