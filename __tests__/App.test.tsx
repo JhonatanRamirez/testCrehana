@@ -1,13 +1,8 @@
-/**
- * @format
- */
-
+import 'react-native';
 import React from 'react';
-import ReactTestRenderer from 'react-test-renderer';
-import App from '../App';
+import renderer from 'react-test-renderer';
+import App from '../src/App';
 
-test('renders correctly', async () => {
-  await ReactTestRenderer.act(() => {
-    ReactTestRenderer.create(<App />);
-  });
+it('renders App without crashing', () => {
+  renderer.create(<App />);
 });

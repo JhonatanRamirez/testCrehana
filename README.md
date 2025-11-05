@@ -1,97 +1,160 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Country Explorer — React Native App
 
-# Getting Started
+A React Native application that displays information about countries using GraphQL and includes an embedded HLS video player.
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+## Features
 
-## Step 1: Start Metro
+* **Country List:** Browse all countries retrieved via GraphQL API.
+* **Search & Filter:** Search by name or filter by continent/currency.
+* **Country Details:** View detailed information about each country.
+* **HLS Video Player:** Watch HLS video streams using a custom WebView player.
+* **Language Settings:** Switch between English and Spanish.
+* **Theming:** Fully supports light/dark themes via React Native Paper.
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+## Tech Stack
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+| Category             | Technology                                         |
+| -------------------- | -------------------------------------------------- |
+| Framework            | React Native (0.73.6)                              |
+| Language             | TypeScript (5.x)                                   |
+| API Layer            | GraphQL with Apollo Client                         |
+| Navigation           | React Navigation (Native Stack)                    |
+| UI Library           | React Native Paper                                 |
+| Video Playback       | WebView-based HLS Player                           |
+| Internationalization | react-native-localize + custom i18n                |
+| Testing              | Jest + @testing-library/react-native               |
+| Icons                | react-native-vector-icons (MaterialCommunityIcons) |
 
-```sh
-# Using npm
-npm start
+## Project Structure
 
-# OR using Yarn
-yarn start
+```
+src
+├── api/
+│   ├── apollo/              # Apollo client setup
+│   └── graphQl/             # GraphQL queries
+│
+├── domain/
+│   └── country/             # Business logic (e.g. filterCountries)
+│
+├── i18n/                    # Translations and language provider
+│   ├── index.ts
+│   └── I18nProvider.tsx
+│
+├── navigation/
+│   └── AppNavigator.tsx     # Navigation configuration
+│
+├── presentation/
+│   ├── components/          # Reusable UI components (VideoPlayer, etc.)
+│   └── screens/
+│       ├── CountryList/     # Country list view + filters
+│       ├── CountryDetail/   # Country details + video player
+│       └── Settings/        # Language selection screen
+│
+└── App.tsx                  # App entry point
 ```
 
-## Step 2: Build and run your app
+## Testing & Coverage
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+This project uses Jest and @testing-library/react-native.
 
-### Android
+### Run all tests
 
-```sh
-# Using npm
-npm run android
+```bash
+yarn test
+```
 
-# OR using Yarn
+### Run with coverage report
+
+```bash
+yarn test --coverage
+```
+
+A detailed HTML report is generated at:
+
+```
+coverage/lcov-report/index.html
+```
+
+### Example coverage result
+
+```
+----------------------------------------
+File                           | % Stmts | % Branch | % Funcs | % Lines
+----------------------------------------
+All files                      |   85.7  |   80.0   |   78.9  |   86.2
+src/presentation/components    |  100.0  |  100.0   |  100.0  |  100.0
+src/presentation/screens       |   76.4  |   70.0   |   65.0  |   74.8
+----------------------------------------
+```
+
+## Installation & Setup
+
+### Prerequisites
+
+* Node.js >= 20
+* Yarn (recommended)
+* React Native CLI
+* iOS Simulator or Android Emulator
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/JhonatanRamirez/testCrehana.git
+cd testCrehana
+```
+
+### 2. Install dependencies
+
+```bash
+yarn install
+```
+
+### 3. iOS setup
+
+```bash
+cd ios && pod install && cd ..
+```
+
+### 4. Run the app
+
+```bash
+# Start Metro bundler
+yarn start
+
+# Run on iOS
+yarn ios
+
+# Run on Android
 yarn android
 ```
 
-### iOS
+## GraphQL API
 
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
+The app uses the Countries GraphQL API (`https://countries.trevorblades.com/`) to fetch data such as:
 
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
+* Country name
+* Capital
+* Currency
+* Continent
+* Languages
 
-```sh
-bundle install
-```
+## Environment
 
-Then, and every time you update your native dependencies, run:
+| Platform     | Version  |
+| ------------ | -------- |
+| Node         | ≥ 20.0.0 |
+| Yarn         | ≥ 1.22   |
+| React Native | 0.73.6   |
+| TypeScript   | 5.x      |
+| Jest         | 29.x     |
 
-```sh
-bundle exec pod install
-```
+## Contributing
 
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
+Contributions are welcome.
+Fork the repository, create a feature branch, and submit a pull request.
 
-```sh
-# Using npm
-npm run ios
+## Author
 
-# OR using Yarn
-yarn ios
-```
-
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
-
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
-
-## Step 3: Modify your app
-
-Now that you have successfully run the app, let's make changes!
-
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
-
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
-
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+**Jhonatan Ramirez**
+Senior React Native Developer
+GitHub: [JhonatanRamirez](https://github.com/JhonatanRamirez)
