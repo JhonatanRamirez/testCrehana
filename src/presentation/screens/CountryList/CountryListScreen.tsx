@@ -19,6 +19,7 @@ import { GET_COUNTRIES } from '../../../api/queries';
 import { styles } from './CountryListScreen.styles';
 import { t } from '../../../i18n';
 import { useI18n } from '../../../i18n/I18nProvider';
+import { filterCountries } from '../../../domain/country/filterCountries';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'CountryList'>;
 
@@ -53,15 +54,15 @@ const CountryListScreen = ({ navigation }: Props) => {
     return [...new Set(allCurrencies)].sort();
   }, [data]);
 
-  const filteredCountries = useMemo(() => {
-    if (!data) return [];
-    return data.countries.filter(country => {
-      const matchesSearch = country.name.toLowerCase().includes(searchQuery.toLowerCase());
-      const matchesContinent = !selectedContinent || country.continent.name === selectedContinent;
-      const matchesCurrency = !selectedCurrency || country.currency === selectedCurrency;
-      return matchesSearch && matchesContinent && matchesCurrency;
-    });
-  }, [data, searchQuery, selectedContinent, selectedCurrency]);
+const filteredCountries = useMemo(() => {
+  if (!data) return [];
+  return filterCountries(
+    data.countries,
+    searchQuery,
+    selectedContinent,
+    selectedCurrency,
+  );
+}, [data, searchQuery, selectedContinent, selectedCurrency]);
 
   const handleCountryPress = useCallback(
     (code: string) => navigation.navigate('CountryDetail', { countryCode: code }),
