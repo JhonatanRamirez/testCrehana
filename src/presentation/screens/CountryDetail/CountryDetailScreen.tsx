@@ -52,7 +52,7 @@ const CountryDetailScreen = ({ route }: Props) => {
     return <Text style={styles.centered}>{t('common.countryNotFound')}</Text>;
   }
 
-  const videoUrl = 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8';
+  const videoUrl = 'https://youtu.be/8jUK5QsM5GY?si=7tmChEIzyWQwxOKA';
 
   const renderNativePlayer = () => (
     <Video
